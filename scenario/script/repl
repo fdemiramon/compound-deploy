@@ -15,7 +15,7 @@ no_tsc="$NO_TSC"
 [ -n "$SCRIPT" ] && script+=("$SCRIPT")
 
 usage() { echo "$0 usage:" && grep ".)\ #" $0; exit 0; }
-while getopts ":hdn:e:s:vt" arg; do
+while getopts "hdn:e:s:vt" arg; do
 	case $arg in
 		c) # Don't compile
 			no_compile="true"
