@@ -1,17 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import {Script, console} from "forge-std/Script.sol";
+import {BaseScript} from "./BaseScript.sol";
 import {Unitroller} from "../src/Unitroller.sol";
 import {Comptroller} from "../src/Comptroller.sol";
 import {ComptrollerInterface} from "../src/ComptrollerInterface.sol";
-import "./Constants.sol";
 
-contract StubScript is Script {
+contract StubScript is BaseScript {
     Unitroller public unitroller;
     Comptroller public comptroller;
-
-    function setUp() public {}
 
     function run() public {
         vm.startBroadcast();
@@ -21,9 +18,11 @@ contract StubScript is Script {
         unitroller._setPendingImplementation(address(comptroller));
         comptroller._become(unitroller);
 
-        ComptrollerInterface(address(unitroller))._setCloseFactor(closeFactor);
+        ComptrollerInterface(address(unitroller))._setCloseFactor(
+            constants.closeFactor()
+        );
         ComptrollerInterface(address(unitroller))._setLiquidationIncentive(
-            liquidationIncentive
+            constants.liquidationIncentive()
         );
 
         vm.stopBroadcast();

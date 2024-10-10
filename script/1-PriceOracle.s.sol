@@ -1,13 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import {Script, console} from "forge-std/Script.sol";
+import {BaseScript} from "./BaseScript.sol";
 import {SimplePriceOracle as PriceOracle} from "../src/SimplePriceOracle.sol";
 
-contract StubScript is Script {
+contract PriceOracleScript is BaseScript {
     PriceOracle public priceOracle;
-
-    function setUp() public {}
 
     function run() public {
         vm.startBroadcast();
