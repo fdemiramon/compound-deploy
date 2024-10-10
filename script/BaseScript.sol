@@ -10,10 +10,23 @@ contract BaseScript is Script {
     IConstants internal constants;
 
     // @dev The location of the addresses.json file.
-    string internal addressesFile;
+    string internal addressesFilePath;
+
+    mapping(string => address) internal addresses;
+
+    string jsonKey = "addresses";
 
     constructor() {
         constants = new LocalConstants();
-        addressesFile = "/out/addresses.json";
+        addressesFilePath = "./out/addresses.json";
+    }
+
+    function addAddress(string memory key, address value) internal {
+        string memory output = vm.serializeAddress(jsonKey, key, value);
+        vm.writeJson(output, addressesFilePath);
+    }
+
+    function getAddress(string memory key) internal view returns (address) {
+        return abi.decode(vm.parseJson(jsonKey, key), (address));
     }
 }

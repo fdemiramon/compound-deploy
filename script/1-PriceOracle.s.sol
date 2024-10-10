@@ -9,7 +9,7 @@ contract PriceOracleScript is BaseScript {
 
     function run() public {
         vm.startBroadcast();
-        priceOracle = new PriceOracle();
+        addAddress("PriceOracle", address(new PriceOracle()));
         vm.stopBroadcast();
     }
 }

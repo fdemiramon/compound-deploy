@@ -14,23 +14,19 @@ contract StubScript is BaseScript {
         vm.startBroadcast();
 
         unitroller = new Unitroller();
+        addAddress("Unitroller", address(unitroller));
         comptroller = new Comptroller();
+        addAddress("Comptroller", address(comptroller));
         unitroller._setPendingImplementation(address(comptroller));
         comptroller._become(unitroller);
 
-        ComptrollerInterface(address(unitroller))._setCloseFactor(constants.closeFactor());
-        ComptrollerInterface(address(unitroller))._setLiquidationIncentive(constants.liquidationIncentive());
+        ComptrollerInterface(address(unitroller))._setCloseFactor(
+            constants.closeFactor()
+        );
+        ComptrollerInterface(address(unitroller))._setLiquidationIncentive(
+            constants.liquidationIncentive()
+        );
 
         vm.stopBroadcast();
-
-        // See @https://github.com/AngleProtocol/angle-governance/blob/6e48f3f0a308af8c3abb7b32b4df7ec7c13fb587/scripts/Utils.s.sol#L2
-        // string memory addressesKey = ".addresses";
-        // vm.serializeAddress(addressesKey, "Unitroller", address(unitroller));
-        // string memory output = vm.serializeAddress(
-        //     addressesKey,
-        //     "Comptroller",
-        //     address(comptroller)
-        // );
-        // vm.writeJson(output, "./out/example.json");
     }
 }

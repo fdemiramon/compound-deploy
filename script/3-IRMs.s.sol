@@ -6,7 +6,6 @@ import {BaseScript} from "./BaseScript.sol";
 contract IRMsScript is BaseScript {
     function run() public {
         vm.startBroadcast();
-
         vm.stopBroadcast();
     }
 }
