@@ -20,12 +20,8 @@ contract StubScript is BaseScript {
         unitroller._setPendingImplementation(address(comptroller));
         comptroller._become(unitroller);
 
-        ComptrollerInterface(address(unitroller))._setCloseFactor(
-            constants.closeFactor()
-        );
-        ComptrollerInterface(address(unitroller))._setLiquidationIncentive(
-            constants.liquidationIncentive()
-        );
+        ComptrollerInterface(address(unitroller))._setCloseFactor(constants.closeFactor());
+        ComptrollerInterface(address(unitroller))._setLiquidationIncentive(constants.liquidationIncentive());
 
         vm.stopBroadcast();
     }
