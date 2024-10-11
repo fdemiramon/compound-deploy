@@ -1,8 +1,9 @@
-## Compound V2 for Izun
+# Compound V2 for Izun
 
-### Prerequisites
-- Install [Foundry](https://github.com/foundry-rs/foundry)
-- Install [DappTools](https://github.com/dapphub/dapptools)
+## Prerequisites
+
+### Install Foundry
+See [Foundry](https://github.com/foundry-rs/foundry)
 
 ### Install Dependencies
 `forge install`
@@ -11,8 +12,15 @@
 `forge build`
 
 ### Test
-`forge test --
-
-
-### Test Local Deployment
 `forge test`
+
+### Install pre-commit hook
+See [this repo](https://github.com/0xYYY/foundry-pre-commit) for instructions then run:
+`pre-commit install`
+
+
+### Local Deployment
+todo
+
+### Testnet Deployment
+todo
