@@ -2,7 +2,7 @@
 src = "src"
 out = "out"
 libs = ["node_modules", "lib"]
-fs_permissions = [{ access = "read-write", path = "./out" }]
+fs_permissions = [{ access = "read-write", path = "./addresses" }]
 remappings = ['@openzeppelin=lib/openzeppelin-contracts']
 
 [rpc_endpoints]

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.13;
 
 import {EIP20Interface as IERC20} from "../src/EIP20Interface.sol";
-import {BaseScript} from "./BaseScript.sol";
+import {BaseScript} from "./BaseScript.s.sol";
 import {CTokenInterface} from "../src/CTokenInterfaces.sol";
 import {CErc20 as CToken} from "../src/CErc20.sol";
 import {CErc20Delegator as CTokenDelegator} from "../src/CErc20Delegator.sol";

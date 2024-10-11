@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import {BaseScript} from "./BaseScript.sol";
+import {BaseScript} from "./BaseScript.s.sol";
 import {MockedERC20} from "../src/Mock/MockedERC20.sol";
 import {EIP20Interface} from "../src/EIP20Interface.sol";
 

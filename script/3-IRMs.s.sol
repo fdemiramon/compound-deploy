@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import {BaseScript} from "./BaseScript.sol";
+import {BaseScript} from "./BaseScript.s.sol";
 import {InterestRateModelHarness as InterestRateModel} from "../src/InterestModelFixedHarness.sol";
 
 contract IRMsScript is BaseScript {

@@ -8,7 +8,7 @@ import {IRMsScript} from "./3-IRMs.s.sol";
 import {TokensScript} from "./4-Tokens.s.sol";
 import {CTokensScript} from "./5-CTokens.s.sol";
 
-contract BaseScript is Script {
+contract Deploy is Script {
     function run() public {
         (new PriceOracleScript()).run();
         (new StubScript()).run();

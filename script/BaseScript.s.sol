@@ -4,6 +4,7 @@ pragma solidity ^0.8.13;
 import {IConstants} from "./Constants/IConstants.sol";
 import {LocalConstants} from "./Constants/LocalConstants.sol";
 import {Script, console} from "forge-std/Script.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract BaseScript is Script {
     // @dev Constants to be loaded
@@ -19,9 +20,14 @@ contract BaseScript is Script {
     constructor() {
         constants = new LocalConstants();
         addressesFilePath = string(
-            abi.encodePacked(vm.projectRoot(), "/out/addresses.json")
+            abi.encodePacked(
+                vm.projectRoot(),
+                "/addresses/",
+                Strings.toString(block.chainid),
+                ".json"
+            )
         );
-        string memory jsonContent = vm.readFile(addressesFilePath);
+        string memory jsonContent = readFile();
         vm.serializeJson(jsonKey, jsonContent);
     }
 
@@ -34,5 +40,15 @@ contract BaseScript is Script {
         string memory jsonContent = vm.readFile(addressesFilePath);
         key = string(abi.encodePacked(".", key));
         return abi.decode(vm.parseJson(jsonContent, key), (address));
+    }
+
+    function readFile() internal returns (string memory) {
+        string memory jsonContent;
+        if (vm.exists(addressesFilePath)) {
+            jsonContent = vm.readFile(addressesFilePath);
+        } else {
+            jsonContent = "{}";
+        }
+        return jsonContent;
     }
 }

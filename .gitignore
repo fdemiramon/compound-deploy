@@ -7,3 +7,6 @@ out.json
 .vscode
 /cache
 .env
+/broadcast
+/addresses
+!/addresses/.gitkeep

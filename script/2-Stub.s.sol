@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import {BaseScript} from "./BaseScript.sol";
+import {BaseScript} from "./BaseScript.s.sol";
 import {Unitroller} from "../src/Unitroller.sol";
 import {Comptroller} from "../src/Comptroller.sol";
 import {ComptrollerInterface} from "../src/ComptrollerInterface.sol";
