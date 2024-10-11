@@ -10,3 +10,4 @@ out.json
 /broadcast
 /addresses
 !/addresses/.gitkeep
+.gas-snapshot

@@ -14,6 +14,7 @@ contract StubScript is BaseScript {
         vm.startBroadcast();
 
         unitroller = new Unitroller();
+
         addAddress("Unitroller", address(unitroller));
         comptroller = new Comptroller();
         addAddress("Comptroller", address(comptroller));
