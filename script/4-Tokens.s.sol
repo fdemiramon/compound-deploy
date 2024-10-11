@@ -26,10 +26,7 @@ contract TokensScript is BaseScript {
                 tokenAddress = constants.markets()[i].tokenAddress;
                 tokenSymbol = EIP20Interface(tokenAddress).symbol();
             }
-            addAddress(
-                string(abi.encodePacked("T-", tokenSymbol)),
-                tokenAddress
-            );
+            addAddress(string(abi.encodePacked("T-", tokenSymbol)), tokenAddress);
         }
         vm.stopBroadcast();
     }

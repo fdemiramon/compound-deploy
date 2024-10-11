@@ -19,14 +19,8 @@ contract BaseScript is Script {
 
     constructor() {
         constants = new LocalConstants();
-        addressesFilePath = string(
-            abi.encodePacked(
-                vm.projectRoot(),
-                "/addresses/",
-                Strings.toString(block.chainid),
-                ".json"
-            )
-        );
+        addressesFilePath =
+            string(abi.encodePacked(vm.projectRoot(), "/addresses/", Strings.toString(block.chainid), ".json"));
         string memory jsonContent = readFile();
         vm.serializeJson(jsonKey, jsonContent);
     }

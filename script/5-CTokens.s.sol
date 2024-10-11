@@ -27,30 +27,18 @@ contract CTokensScript is BaseScript {
 
         for (uint256 i = 0; i < constants.markets().length; i++) {
             if (constants.markets()[i].tokenAddress == address(0)) {
-                tokenAddress = getAddress(
-                    string(
-                        abi.encodePacked(
-                            "T-",
-                            constants.markets()[i].tokenSymbol
-                        )
-                    )
-                );
+                tokenAddress = getAddress(string(abi.encodePacked("T-", constants.markets()[i].tokenSymbol)));
             } else {
                 tokenAddress = constants.markets()[i].tokenAddress;
             }
             token = IERC20(tokenAddress);
             cTokenDelegate = new CTokenDelegate();
 
-            addAddress(
-                string(abi.encodePacked("CTDe-", token.symbol())),
-                address(cTokenDelegate)
-            );
+            addAddress(string(abi.encodePacked("CTDe-", token.symbol())), address(cTokenDelegate));
             cTokenDelegator = new CTokenDelegator(
                 address(token),
                 unitroller,
-                InterestRateModel(
-                    getAddress(constants.markets()[i].interestRateModelCode)
-                ),
+                InterestRateModel(getAddress(constants.markets()[i].interestRateModelCode)),
                 constants.initialExchangeRate(),
                 string(abi.encodePacked("Compound - ", token.name)),
                 string(abi.encodePacked("C", token.symbol)),
@@ -59,10 +47,7 @@ contract CTokensScript is BaseScript {
                 address(cTokenDelegate),
                 hex""
             );
-            addAddress(
-                string(abi.encodePacked("CTDo-", token.symbol())),
-                address(cTokenDelegator)
-            );
+            addAddress(string(abi.encodePacked("CTDo-", token.symbol())), address(cTokenDelegator));
         }
 
         vm.stopBroadcast();
