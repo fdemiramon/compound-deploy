@@ -42,23 +42,26 @@ contract CTokensScript is BaseScript {
             cTokenDelegate = new CTokenDelegate();
 
             addAddress(
-                string(abi.encodePacked("CTD-", token.symbol())),
+                string(abi.encodePacked("CTDe-", token.symbol())),
                 address(cTokenDelegate)
             );
             cTokenDelegator = new CTokenDelegator(
                 address(token),
                 unitroller,
                 InterestRateModel(
-                    constants.markets()[i].interestRateModelAddress
+                    getAddress(constants.markets()[i].interestRateModelCode)
                 ),
-                // @todo
-                1000000,
+                constants.initialExchangeRate(),
                 string(abi.encodePacked("Compound - ", token.name)),
                 string(abi.encodePacked("C", token.symbol)),
                 token.decimals(),
                 payable(msg.sender),
                 address(cTokenDelegate),
                 hex""
+            );
+            addAddress(
+                string(abi.encodePacked("CTDo-", token.symbol())),
+                address(cTokenDelegator)
             );
         }
 
