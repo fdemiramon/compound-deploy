@@ -9,24 +9,26 @@ contract TokensScript is BaseScript {
     function run() public {
         vm.startBroadcast();
         string memory tokenSymbol;
+        address tokenAddress;
         for (uint256 i = 0; i < constants.markets().length; i++) {
             if (constants.markets()[i].tokenAddress == address(0)) {
-                new MockedERC20(
-                    constants.markets()[i].tokenName,
-                    constants.markets()[i].tokenSymbol,
-                    constants.markets()[i].tokenDecimals,
-                    100e18,
-                    msg.sender
+                tokenAddress = address(
+                    new MockedERC20(
+                        constants.markets()[i].tokenName,
+                        constants.markets()[i].tokenSymbol,
+                        constants.markets()[i].tokenDecimals,
+                        100e18,
+                        msg.sender
+                    )
                 );
                 tokenSymbol = constants.markets()[i].tokenSymbol;
             } else {
-                tokenSymbol = EIP20Interface(
-                    constants.markets()[i].tokenAddress
-                ).symbol();
+                tokenAddress = constants.markets()[i].tokenAddress;
+                tokenSymbol = EIP20Interface(tokenAddress).symbol();
             }
             addAddress(
                 string(abi.encodePacked("T-", tokenSymbol)),
-                constants.markets()[i].tokenAddress
+                tokenAddress
             );
         }
         vm.stopBroadcast();
