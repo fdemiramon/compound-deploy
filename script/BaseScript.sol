@@ -26,14 +26,6 @@ contract BaseScript is Script {
     }
 
     function addAddress(string memory key, address value) internal {
-        // string memory jsonContent = vm.readFile(addressesFilePath);
-        // string[] memory keys = vm.parseJsonKeys(jsonContent, jsonKey); // ["a", "b"]
-        // address mappedAddress;
-        // for (uint256 i = 0; i < keys.length; i++) {
-        //     mappedAddress = getAddress[keys[i]];
-        //     vm.serializeAddress(jsonKey, keys[i], mappedAddress);
-        // }
-
         string memory output = vm.serializeAddress(jsonKey, key, value);
         vm.writeJson(output, addressesFilePath);
     }
