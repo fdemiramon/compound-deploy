@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import {IConstants} from "./Constants/IConstants.sol";
 import {LocalConstants} from "./Constants/LocalConstants.sol";
-import {Script} from "forge-std/Script.sol";
+import {Script, console} from "forge-std/Script.sol";
 
 contract BaseScript is Script {
     // @dev Constants to be loaded
@@ -18,7 +18,9 @@ contract BaseScript is Script {
 
     constructor() {
         constants = new LocalConstants();
-        addressesFilePath = "./out/addresses.json";
+        addressesFilePath = string(
+            abi.encodePacked(vm.projectRoot(), "/out/addresses.json")
+        );
     }
 
     function addAddress(string memory key, address value) internal {
@@ -27,6 +29,8 @@ contract BaseScript is Script {
     }
 
     function getAddress(string memory key) internal view returns (address) {
-        return abi.decode(vm.parseJson(jsonKey, key), (address));
+        string memory jsonContent = vm.readFile(addressesFilePath);
+        key = string(abi.encodePacked(".", key));
+        return abi.decode(vm.parseJson(jsonContent, key), (address));
     }
 }

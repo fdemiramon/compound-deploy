@@ -6,10 +6,10 @@ import {BaseScript} from "./BaseScript.sol";
 import {ComptrollerInterface} from "../src/ComptrollerInterface.sol";
 
 contract CTokensScript is BaseScript {
-    // ComptrollerInterface public unitroller =
-    //     ComptrollerInterface(getAddress("Comptroller"));
+    ComptrollerInterface public unitroller;
 
     function run() public {
+        unitroller = ComptrollerInterface(getAddress("Unitroller"));
         vm.startBroadcast();
 
         for (uint256 i = 0; i < constants.markets().length; i++) {}

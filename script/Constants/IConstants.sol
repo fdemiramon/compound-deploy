@@ -5,6 +5,9 @@ interface IConstants {
     // @dev Description of the markets
     struct Market {
         address tokenAddress;
+        string tokenName;
+        string tokenSymbol;
+        uint8 tokenDecimals;
         address interestRateModelAddress;
         uint256 collateralFactor;
     }
