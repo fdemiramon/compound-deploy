@@ -9,5 +9,5 @@ out.json
 .env
 /broadcast
 /addresses
-!/addresses/.gitkeep
+!addresses/.gitkeep
 .gas-snapshot
