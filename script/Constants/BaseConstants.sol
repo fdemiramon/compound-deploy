@@ -13,8 +13,14 @@ abstract contract BaseConstants is IConstants {
 
     uint256 public _maxAssets = 20;
 
+    uint256 public _initialExchangeRate = 1000000000000000000;
+
     function markets() external view returns (Market[] memory) {
         return _markets;
+    }
+
+    function initialExchangeRate() external view returns (uint256) {
+        return _initialExchangeRate;
     }
 
     function liquidationIncentive() external view returns (uint256) {
