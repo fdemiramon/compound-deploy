@@ -1,6 +1,6 @@
 # Compound V2 for Izun
 
-## Prerequisites
+## 1. Prerequisites
 
 ### Install Foundry
 See [Foundry](https://github.com/foundry-rs/foundry)
@@ -18,9 +18,11 @@ See [Foundry](https://github.com/foundry-rs/foundry)
 See [this repo](https://github.com/0xYYY/foundry-pre-commit) for instructions then run:
 `pre-commit install`
 
-
-### Local Deployment
+### Set env vars
 todo
 
-### Testnet Deployment
+## 2. Local Deployment
+todo
+
+## 3. Testnet Deployment
 todo
