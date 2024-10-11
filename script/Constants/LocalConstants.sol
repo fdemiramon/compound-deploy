@@ -9,30 +9,30 @@ contract LocalConstants is BaseConstants {
         _markets.push(
             Market(
                 address(0),
-                "Mocked DAI",
+                "DAI",
                 "DAI",
                 18,
-                address(0),
+                "IRM-Harness",
                 300000000000000000
             )
         );
         _markets.push(
             Market(
                 address(0),
-                "Mocked USDC",
+                "USDC",
                 "USDC",
                 6,
-                address(0),
+                "IRM-Harness",
                 300000000000000000
             )
         );
         _markets.push(
             Market(
                 address(0),
-                "MockedUSDT",
+                "USDT",
                 "USDT",
                 6,
-                address(0),
+                "IRM-Harness",
                 300000000000000000
             )
         );
@@ -42,7 +42,7 @@ contract LocalConstants is BaseConstants {
                 "WBTC",
                 "WBTC",
                 6,
-                address(0),
+                "IRM-Harness",
                 300000000000000000
             )
         );

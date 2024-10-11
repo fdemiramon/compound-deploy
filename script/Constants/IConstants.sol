@@ -8,7 +8,7 @@ interface IConstants {
         string tokenName;
         string tokenSymbol;
         uint8 tokenDecimals;
-        address interestRateModelAddress;
+        string interestRateModelCode;
         uint256 collateralFactor;
     }
 
@@ -22,4 +22,7 @@ interface IConstants {
 
     // @dev Maximum number of assets that can be entered into a single liquidation. Does not seem to be used
     function maxAssets() external view returns (uint256);
+
+    // @dev The initial exchange rate, scaled by 1e18
+    function initialExchangeRate() external view returns (uint256);
 }
