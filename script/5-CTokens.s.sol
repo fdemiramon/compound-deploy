@@ -34,20 +34,20 @@ contract CTokensScript is BaseScript {
             token = IERC20(tokenAddress);
             cTokenDelegate = new CTokenDelegate();
 
-            addAddress(string(abi.encodePacked("CTDe-", token.symbol())), address(cTokenDelegate));
+            addAddress(string(abi.encodePacked("T-c", token.symbol(), "Delegate")), address(cTokenDelegate));
             cTokenDelegator = new CTokenDelegator(
                 address(token),
                 unitroller,
                 InterestRateModel(getAddress(constants.markets()[i].interestRateModelCode)),
                 constants.initialExchangeRate(),
-                string(abi.encodePacked("Compound - ", token.name)),
-                string(abi.encodePacked("C", token.symbol)),
+                string(abi.encodePacked("Compound Delegator - ", token.name)),
+                string(abi.encodePacked("c", token.symbol(), "Delegator")),
                 token.decimals(),
                 payable(msg.sender),
                 address(cTokenDelegate),
                 hex""
             );
-            addAddress(string(abi.encodePacked("CTDo-", token.symbol())), address(cTokenDelegator));
+            addAddress(string(abi.encodePacked("T-c", token.symbol(), "Delegator")), address(cTokenDelegator));
         }
 
         vm.stopBroadcast();

@@ -15,7 +15,7 @@ contract BaseScript is Script {
 
     mapping(string => address) internal addresses;
 
-    string jsonKey = "addresses";
+    string jsonKey = ".addresses";
 
     constructor() {
         constants = new LocalConstants();
@@ -26,6 +26,9 @@ contract BaseScript is Script {
     }
 
     function addAddress(string memory key, address value) internal {
+        addressesFilePath =
+            string(abi.encodePacked(vm.projectRoot(), "/addresses/", Strings.toString(block.chainid), ".json"));
+
         string memory output = vm.serializeAddress(jsonKey, key, value);
         vm.writeJson(output, addressesFilePath);
     }
