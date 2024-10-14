@@ -21,7 +21,7 @@ contract CTokensScript is BaseScript {
         CTokenDelegator cTokenDelegator;
 
         // @dev Get Unitroller
-        unitroller = ComptrollerInterface(getAddress("Unitroller"));
+        unitroller = ComptrollerInterface(getAddress("Contracts", "Unitroller"));
 
         vm.startBroadcast();
 
@@ -34,11 +34,11 @@ contract CTokensScript is BaseScript {
             token = IERC20(tokenAddress);
             cTokenDelegate = new CTokenDelegate();
 
-            addAddress(string(abi.encodePacked("T-c", token.symbol(), "Delegate")), address(cTokenDelegate));
+            addAddress("CTokens", string(abi.encodePacked("T-c", token.symbol(), "Delegate")), address(cTokenDelegate));
             cTokenDelegator = new CTokenDelegator(
                 address(token),
                 unitroller,
-                InterestRateModel(getAddress(constants.markets()[i].interestRateModelCode)),
+                InterestRateModel("Contracts", getAddress(constants.markets()[i].interestRateModelCode)),
                 constants.initialExchangeRate(),
                 string(abi.encodePacked("Compound Delegator - ", token.name)),
                 string(abi.encodePacked("c", token.symbol(), "Delegator")),
@@ -47,7 +47,7 @@ contract CTokensScript is BaseScript {
                 address(cTokenDelegate),
                 hex""
             );
-            addAddress(string(abi.encodePacked("T-c", token.symbol(), "Delegator")), address(cTokenDelegator));
+            addAddress("CTokens", string(abi.encodePacked("T-c", token.symbol(), "Delegator")), address(cTokenDelegator));
         }
 
         vm.stopBroadcast();

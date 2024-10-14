@@ -9,7 +9,7 @@ contract IRMsScript is BaseScript {
 
     function run() public {
         vm.startBroadcast();
-        addAddress("IRM-Harness", address(new InterestRateModel(0)));
+        addAddress("InterestRateModel", "IRM-Harness", address(new InterestRateModel(0)));
         vm.stopBroadcast();
     }
 }

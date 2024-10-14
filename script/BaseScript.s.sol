@@ -5,6 +5,8 @@ import {IConstants} from "./Constants/IConstants.sol";
 import {LocalConstants} from "./Constants/LocalConstants.sol";
 import {Script, console} from "forge-std/Script.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
+import {stdJson} from "forge-std/StdJson.sol";
+using stdJson for string;
 
 contract BaseScript is Script {
     // @dev Constants to be loaded
@@ -25,18 +27,20 @@ contract BaseScript is Script {
         vm.serializeJson(jsonKey, jsonContent);
     }
 
-    function addAddress(string memory key, address value) internal {
-        addressesFilePath =
-            string(abi.encodePacked(vm.projectRoot(), "/addresses/", Strings.toString(block.chainid), ".json"));
-
-        string memory output = vm.serializeAddress(jsonKey, key, value);
+    function addAddress(string memory topKey, string memory key, address value) internal {
+        string memory json = "json";
+        string memory semiFinal = json.serialize(key, value);
+        string memory json2 = "json2";
+        string memory finalJson = json2.serialize(topKey, semiFinal);
+        string memory output = vm.serializeJson(jsonKey, finalJson);
+        console.log(output);
         vm.writeJson(output, addressesFilePath);
     }
 
-    function getAddress(string memory key) internal view returns (address) {
+    function getAddress(string memory topKey, string memory key) internal view returns (address) {
         string memory jsonContent = vm.readFile(addressesFilePath);
-        key = string(abi.encodePacked(".", key));
-        return abi.decode(vm.parseJson(jsonContent, key), (address));
+        topKey = string(abi.encodePacked(".", topKey));
+        return abi.decode(vm.parseJson(abi.decode(vm.parseJson(jsonContent, topKey), (string)), key), (address));
     }
 
     function readFile() internal returns (string memory) {
