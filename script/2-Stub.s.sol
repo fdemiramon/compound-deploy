@@ -15,9 +15,9 @@ contract StubScript is BaseScript {
 
         unitroller = new Unitroller();
 
-        addAddress("Unitroller", address(unitroller));
+        addAddress("Stub", "Unitroller", address(unitroller));
         comptroller = new Comptroller();
-        addAddress("Comptroller", address(comptroller));
+        addAddress("Stub", "Comptroller", address(comptroller));
         unitroller._setPendingImplementation(address(comptroller));
         comptroller._become(unitroller);
 

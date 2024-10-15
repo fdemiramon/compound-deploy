@@ -10,39 +10,37 @@ contract BaseScript is Script {
     // @dev Constants to be loaded
     IConstants internal constants;
 
-    // @dev The location of the addresses.json file.
-    string internal addressesFilePath;
-
     mapping(string => address) internal addresses;
 
-    string jsonKey = ".addresses";
+    string jsonKey = "addresses";
 
     constructor() {
         constants = new LocalConstants();
-        addressesFilePath =
-            string(abi.encodePacked(vm.projectRoot(), "/addresses/", Strings.toString(block.chainid), ".json"));
-        string memory jsonContent = readFile();
+    }
+
+    function addAddress(string memory topKey, string memory key, address value) internal {
+        string memory jsonContent = readFile(topKey);
+        console.log(jsonContent);
         vm.serializeJson(jsonKey, jsonContent);
-    }
-
-    function addAddress(string memory key, address value) internal {
-        addressesFilePath =
-            string(abi.encodePacked(vm.projectRoot(), "/addresses/", Strings.toString(block.chainid), ".json"));
-
         string memory output = vm.serializeAddress(jsonKey, key, value);
-        vm.writeJson(output, addressesFilePath);
+        vm.writeJson(output, filePath(topKey));
     }
 
-    function getAddress(string memory key) internal view returns (address) {
-        string memory jsonContent = vm.readFile(addressesFilePath);
-        key = string(abi.encodePacked(".", key));
-        return abi.decode(vm.parseJson(jsonContent, key), (address));
+    function getAddress(string memory topKey, string memory key) internal returns (address) {
+        string memory jsonContent = readFile(topKey);
+        return abi.decode(vm.parseJson(jsonContent, string(abi.encodePacked(".", key))), (address));
     }
 
-    function readFile() internal returns (string memory) {
+    function filePath(string memory topKey) public view returns (string memory) {
+        return string(
+            abi.encodePacked(vm.projectRoot(), "/addresses/", Strings.toString(block.chainid), "-", topKey, ".json")
+        );
+    }
+
+    function readFile(string memory topKey) internal returns (string memory) {
         string memory jsonContent;
-        if (vm.exists(addressesFilePath)) {
-            jsonContent = vm.readFile(addressesFilePath);
+        if (vm.exists(filePath(topKey))) {
+            jsonContent = vm.readFile(filePath(topKey));
         } else {
             jsonContent = "{}";
         }

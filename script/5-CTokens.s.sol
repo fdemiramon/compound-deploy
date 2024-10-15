@@ -21,24 +21,25 @@ contract CTokensScript is BaseScript {
         CTokenDelegator cTokenDelegator;
 
         // @dev Get Unitroller
-        unitroller = ComptrollerInterface(getAddress("Unitroller"));
+        unitroller = ComptrollerInterface(getAddress("Stub", "Unitroller"));
 
         vm.startBroadcast();
 
         for (uint256 i = 0; i < constants.markets().length; i++) {
             if (constants.markets()[i].tokenAddress == address(0)) {
-                tokenAddress = getAddress(string(abi.encodePacked("T-", constants.markets()[i].tokenSymbol)));
+                tokenAddress = getAddress("Tokens", constants.markets()[i].tokenSymbol);
             } else {
                 tokenAddress = constants.markets()[i].tokenAddress;
             }
+            console.log(getAddress("InterestRateModels", constants.markets()[i].interestRateModelCode));
             token = IERC20(tokenAddress);
             cTokenDelegate = new CTokenDelegate();
 
-            addAddress(string(abi.encodePacked("T-c", token.symbol(), "Delegate")), address(cTokenDelegate));
+            addAddress("CTokensDelegates", token.symbol(), address(cTokenDelegate));
             cTokenDelegator = new CTokenDelegator(
                 address(token),
                 unitroller,
-                InterestRateModel(getAddress(constants.markets()[i].interestRateModelCode)),
+                InterestRateModel(getAddress("InterestRateModels", constants.markets()[i].interestRateModelCode)),
                 constants.initialExchangeRate(),
                 string(abi.encodePacked("Compound Delegator - ", token.name)),
                 string(abi.encodePacked("c", token.symbol(), "Delegator")),
@@ -47,7 +48,7 @@ contract CTokensScript is BaseScript {
                 address(cTokenDelegate),
                 hex""
             );
-            addAddress(string(abi.encodePacked("T-c", token.symbol(), "Delegator")), address(cTokenDelegator));
+            addAddress("CTokensDelegators", token.symbol(), address(cTokenDelegator));
         }
 
         vm.stopBroadcast();
