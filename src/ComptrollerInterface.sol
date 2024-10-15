@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: BSD-3-Clause
 pragma solidity ^0.8.10;
 
+import "./CToken.sol";
+
 abstract contract ComptrollerInterface {
     /// @notice Indicator that this is a Comptroller contract (for inspection)
     bool public constant isComptroller = true;
@@ -94,4 +96,6 @@ abstract contract ComptrollerInterface {
     function _setCloseFactor(uint256 newCloseFactorMantissa) external virtual returns (uint256);
 
     function _setLiquidationIncentive(uint256 newLiquidationIncentiveMantissa) external virtual returns (uint256);
+
+    function _supportMarket(CToken cToken) external virtual returns (uint256);
 }

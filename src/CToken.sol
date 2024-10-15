@@ -302,7 +302,7 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
              */
             uint256 totalCash = getCashPrior();
             uint256 cashPlusBorrowsMinusReserves = totalCash + totalBorrows - totalReserves;
-            uint256 exchangeRate = cashPlusBorrowsMinusReserves * expScale / _totalSupply;
+            uint256 exchangeRate = (cashPlusBorrowsMinusReserves * expScale) / _totalSupply;
 
             return exchangeRate;
         }
