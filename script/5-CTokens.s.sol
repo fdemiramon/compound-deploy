@@ -31,7 +31,6 @@ contract CTokensScript is BaseScript {
             } else {
                 tokenAddress = constants.markets()[i].tokenAddress;
             }
-            console.log(getAddress("InterestRateModels", constants.markets()[i].interestRateModelCode));
             token = IERC20(tokenAddress);
             cTokenDelegate = new CTokenDelegate();
 

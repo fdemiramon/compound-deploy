@@ -6,6 +6,7 @@ import {LocalConstants} from "./Constants/LocalConstants.sol";
 import {Script, console} from "forge-std/Script.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import {stdJson} from "forge-std/StdJson.sol";
+
 using stdJson for string;
 
 contract BaseScript is Script {
@@ -32,6 +33,13 @@ contract BaseScript is Script {
         string memory jsonContent = readFile(topKey);
         return abi.decode(vm.parseJson(jsonContent, string(abi.encodePacked(".", key))), (address));
     }
+
+    // function getAddresses(string memory topKey) internal returns (addresses[] memory) {
+    //     string[] memory keys = vm.parseJsonKeys(json, calldataKey);
+    //     // Iterate over the encoded structs
+    //     for (uint256 i = 0; i < keys.length; ++i) {
+    //     }
+    // }
 
     function filePath(string memory topKey) public view returns (string memory) {
         return string(
