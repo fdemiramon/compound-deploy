@@ -23,27 +23,27 @@ contract BaseScript is Script {
 
     function addAddress(string memory topKey, string memory key, address value) internal {
         string memory jsonContent = readFile(topKey);
-        console.log(jsonContent);
         vm.serializeJson(jsonKey, jsonContent);
         string memory output = vm.serializeAddress(jsonKey, key, value);
         vm.writeJson(output, filePath(topKey));
     }
 
-    function getAddress(string memory topKey, string memory key) internal returns (address) {
+    function getAddress(string memory topKey, string memory key) public returns (address) {
         string memory jsonContent = readFile(topKey);
         return abi.decode(vm.parseJson(jsonContent, string(abi.encodePacked(".", key))), (address));
     }
 
-    // function getAddresses(string memory topKey) internal returns (addresses[] memory) {
-    //     string[] memory keys = vm.parseJsonKeys(json, calldataKey);
-    //     // Iterate over the encoded structs
-    //     for (uint256 i = 0; i < keys.length; ++i) {
-    //     }
-    // }
-
     function filePath(string memory topKey) public view returns (string memory) {
+        string memory separator;
+        if (keccak256(abi.encodePacked(topKey)) == keccak256(abi.encodePacked(""))) {
+            separator = "";
+        } else {
+            separator = "-";
+        }
         return string(
-            abi.encodePacked(vm.projectRoot(), "/addresses/", Strings.toString(block.chainid), "-", topKey, ".json")
+            abi.encodePacked(
+                vm.projectRoot(), "/addresses/", Strings.toString(block.chainid), separator, topKey, ".json"
+            )
         );
     }
 

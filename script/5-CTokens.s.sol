@@ -47,6 +47,7 @@ contract CTokensScript is BaseScript {
                 address(cTokenDelegate),
                 hex""
             );
+            unitroller._supportMarket(cTokenDelegate);
             addAddress("CTokensDelegators", token.symbol(), address(cTokenDelegator));
         }
 
